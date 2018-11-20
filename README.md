@@ -1,0 +1,1 @@
+# docker-java-8-centos7
