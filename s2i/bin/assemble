@@ -20,3 +20,10 @@ fi
 
 # Fix source directory permissions
 fix-permissions ./
+
+# Import additional root certificates
+
+if [ -d "./.certs" ]; then
+    cp ./.certs/*.pem /etc/pki/ca-trust/source/anchors/
+    /usr/bin/update-ca-trust extract
+fi
