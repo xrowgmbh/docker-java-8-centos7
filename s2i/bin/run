@@ -3,8 +3,9 @@
 set -e
 
 APP_TARGET=${APP_TARGET:-target}
+APP_JAR_REGEX=${$APP_JAR_REGEX:-`.*\(jar\|war\)`}
 echo "---> Starting Spring Boot application"
 echo "--> # APP_TARGET = $APP_TARGET"
 echo "--> # JAVA_OPTS = $JAVA_OPTS"
 echo "---> Running application from standalone jar/war..."
-java $JAVA_OPTS -jar `find $APP_TARGET -maxdepth 1 -regex ".*\(jar\|war\)"`
+java $JAVA_OPTS -jar `find $APP_TARGET -maxdepth 1 -regex "$APP_JAR_REGEX"`
