@@ -8,4 +8,15 @@ echo "---> Starting Spring Boot application"
 echo "--> # APP_TARGET = $APP_TARGET"
 echo "--> # JAVA_OPTS = $JAVA_OPTS"
 echo "---> Running application from standalone jar/war..."
-java $JAVA_OPTS -jar `find $APP_TARGET -maxdepth 1 -regex "$APP_JAR_REGEX"`
+
+if [! -d "$APP_TARGET"  ]
+then
+   echo APP_TARGET directory isn`t existent.
+   exit 1
+fi
+EXECUTABLE=`find $APP_TARGET -maxdepth 1 -regex "$APP_JAR_REGEX"`
+if [! -r "$EXECUTABLE"  ]
+then
+   echo Executeable Java application not found.
+fi
+java $JAVA_OPTS -jar $EXECUTABLE
