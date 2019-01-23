@@ -3,7 +3,7 @@
 # This image provide a base for running Spring Boot based applications. It
 # provides a base Java 8 installation and Maven 3.
 
-FROM centos/s2i-base-centos7
+FROM centos/s2i-core-centos7
 
 EXPOSE 8080
 
