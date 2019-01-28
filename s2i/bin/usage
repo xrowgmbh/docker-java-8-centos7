@@ -6,8 +6,7 @@ To use it, install S2I: https://github.com/openshift/source-to-image
 
 Sample invocation:
 
-s2i build git://github.com/codecentric/springboot-sample-app codecentric/springboot-maven3-centos springboot-sample-app
-
+s2i build git://github.com/codecentric/springboot-sample-app xrowgmbh/docker-s2i-java-container --runtime-image=xrowgmbh/s2i-jre --runtime-artifact=/opt/app-root/src/target springboot-sample-app
 
 You can then run the resulting image via:
 docker run -p 8080:8080 springboot-sample-app
