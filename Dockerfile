@@ -15,7 +15,8 @@ ENV JAVA_VERSON=1.8.0 \
 LABEL io.k8s.description="Platform for building Spring Boot applications" \
       io.k8s.display-name="Spring Boot Maven 3" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,java,java8,maven,maven3,springboot"
+      io.openshift.tags="builder,java,java8,maven,maven3,springboot" \
+      io.openshift.s2i.assemble-input-files="/opt/app-root/src/target"
 
 RUN yum install -y curl java-$JAVA_VERSON-openjdk-devel && \
     yum clean all
@@ -25,7 +26,8 @@ RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/bina
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
-RUN /usr/bin/chmod +x $STI_SCRIPTS_PATH/* && \
+RUN mkdir .m2 && \
+    /usr/bin/chmod +x $STI_SCRIPTS_PATH/* && \
     /usr/bin/chown -R 1001:0 ./
 USER 1001
 
