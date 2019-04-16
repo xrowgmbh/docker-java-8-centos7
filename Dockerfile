@@ -25,10 +25,10 @@ RUN yum install -y curl java-$JAVA_VERSON-openjdk-devel jq gettext && \
 RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
-  && curl -fsSL https://github.com/OpenAPITools/openapi-generator/archive/v3.3.2.tar.gz | tar xzf - -C /usr/share \
+  && curl -fsSL https://github.com/OpenAPITools/openapi-generator/archive/v${OPENAPI_GENERATOR_VERSION}.tar.gz | tar xzf - -C /usr/share \
   && chmod 755 /usr/share/openapi-generator-${OPENAPI_GENERATOR_VERSION}/bin/utils/openapi-generator-cli.sh \
-  && ln -s /usr/share/openapi-generator-${OPENAPI_GENERATOR_VERSION}/bin/utils/openapi-generator-cli.sh /usr/bin/openapi-generator \
-  && /usr/bin/openapi-generator
+  && ln -s /usr/share/openapi-generator-${OPENAPI_GENERATOR_VERSION}/bin/utils/openapi-generator-cli.sh /usr/bin/openapi-generator-cli \
+  && /usr/bin/openapi-generator-cli version
   
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 RUN mkdir .m2 && \
