@@ -10,6 +10,7 @@ EXPOSE 8080
 ENV JAVA_VERSON=1.8.0 \
     MAVEN_VERSION=3.3.9 \
     JAVA_HOME=/usr/lib/jvm/java \
+    OPENAPI_GENERATOR_VERSION=3.3.2
     MAVEN_HOME=/usr/share/maven
 
 LABEL io.k8s.description="Platform for building Spring Boot applications" \
@@ -18,12 +19,14 @@ LABEL io.k8s.description="Platform for building Spring Boot applications" \
       io.openshift.tags="builder,java,java8,maven,maven3,springboot" \
       io.openshift.s2i.assemble-input-files="/opt/app-root/src/target"
 
-RUN yum install -y curl java-$JAVA_VERSON-openjdk-devel && \
+RUN yum install -y curl java-$JAVA_VERSON-openjdk-devel jq gettext && \
     yum clean all
 
 RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+  && curl https://raw.githubusercontent.com/OpenAPITools/openapi-generator/v${OPENAPI_GENERATOR_VERSION}/bin/utils/openapi-generator-cli.sh > /usr/bin/openapi-generator-cli \
+  && chmod u+x /usr/bin/openapi-generator-cli
 
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 RUN mkdir .m2 && \
