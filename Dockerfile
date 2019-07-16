@@ -12,6 +12,7 @@ ENV JAVA_VERSON=1.8.0 \
     JAVA_HOME=/usr/lib/jvm/java \
     OPENAPI_GENERATOR_VERSION=3.3.2 \
     MAVEN_HOME=/usr/share/maven
+    LANG en_US.UTF-8
 
 LABEL io.k8s.description="Platform for building Spring Boot applications" \
       io.k8s.display-name="Spring Boot Maven 3" \
